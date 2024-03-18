@@ -1,9 +1,5 @@
 // ignore_for_file: unnecessary_this, curly_braces_in_flow_control_structures
-import 'dart:math' as math;
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'package:estote_parati/src/utils/const.dart';
 import 'package:estote_parati/src/widgets/widgets.dart';
@@ -13,8 +9,6 @@ class GroupPlanSectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: scoutColor,
       appBar: AppBar(
@@ -37,22 +31,41 @@ class GroupPlanSectionScreen extends StatelessWidget {
             topLeft: Radius.circular(50)
           ),
           child: Container(
-            color: Color(0xFFFFE599),
+            color: const Color(0xFFFFE599),
             child: ListView.builder(
-              itemCount: 3,
+              itemCount: 2,
               itemBuilder: (context, index){
-                return DataCard(
-                  color: Color(0xFFFFE599),
+                return CustomizedCard(
+                  headerTextColor: Colors.black,
+                  color: const Color(0xFFFFE599),
+                  headerText: 'DIAGNOSTICO',
+                  body: Column(
+                    children: [
+                      const Text(
+                          'Necesidad de que los beneficios desarrollen su Fe. Además, la Parroquia solicita al grupo que participe'
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 50),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(5, (index) => const Icon(Icons.circle)),
+                        ),
+                      )
+                    ],
+                  )
+                );
+                /*return DataCard(
+                  color: const Color(0xFFFFE599),
                   content: Column(
                     children: [
-                      Text(
+                      const Text(
                         'Necesidad de que los beneficios desarrollen su Fe. Además, la Parroquia solicita al grupo que participe'
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 50),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: List.generate(5, (index) => Icon(Icons.circle)),
+                          children: List.generate(5, (index) => const Icon(Icons.circle)),
                         ),
                       )
                     ],
@@ -60,7 +73,7 @@ class GroupPlanSectionScreen extends StatelessWidget {
                   titleColor: Colors.black,
                   title: 'DIAGNOSTICO',
                   cornerText: '',
-                );
+                );*/
               },
             ),
           )

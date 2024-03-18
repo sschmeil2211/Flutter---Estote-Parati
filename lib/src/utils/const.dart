@@ -22,7 +22,7 @@ const String cruzDelSur = 'assets/images/sa_logos/cruz_del_sur.png';
 const String rumboSur = 'assets/images/sa_logos/rumbo_sur.png';
 const String scoutsDeArgentina = 'assets/images/sa_logos/scout_de_argentina.png';
 
-const List<String> saLogos = [cruzDelSur, rumboSur, scoutsDeArgentina];
+const List<String> saLogos = [cruzDelSur, rumboSur];
 
 const List<String> missions = ['PATIO CHICO', 'PATIO GRANDE', 'MISA', 'MERIENDA'];
 

@@ -10,8 +10,6 @@ class LastAdvicesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-
     List<String> months = ['Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Dicciembre'];
     List<String> items = ['BAÑOS', 'ANUAL', 'FINANZAS'];
 
@@ -36,21 +34,34 @@ class LastAdvicesScreen extends StatelessWidget {
       ),
       body: ClipRRect(
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(50)
+          topLeft: Radius.circular(50),
         ),
         child: ListView(
           children: List.generate(months.length, (index) => InkWell(
             child: Container(
               color: index == 0 ? scoutColor : groupColor,
-              child: DataCard(
-                titleColor: Colors.white,
-                cornerText: '2023',
-                color: groupColor,
-                title: months[index],
-                content: Text(
-                  themes,
-                  style: const TextStyle(color: Colors.white),
+              child: Container(
+                decoration: const BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        offset: Offset(-5, -5),
+                        blurRadius: 10,
+                        color: Colors.black38
+                    )
+                  ],
                 ),
+                child: CustomizedCard(
+                  color: groupColor,
+                  headerText: months[index],
+                  corner: const Text(
+                    '2023',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  body: Text(
+                    themes,
+                    style: const TextStyle(color: Colors.white),
+                  )
+                )
               ),
             ),
             onTap: () => Navigator.pushNamed(context, 'selectedAdvicesScreen'),

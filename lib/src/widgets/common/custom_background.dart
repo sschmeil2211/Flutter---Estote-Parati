@@ -5,132 +5,129 @@ import 'package:flutter/material.dart';
 
 import 'package:estote_parati/src/utils/const.dart';
 
-class CustomBackground extends StatelessWidget {
-  final String? extraHeaderTitle;
-  final double containerHeight;
+class CustomizedBackground extends StatelessWidget {
+  final String backgroundHeader;
+  final bool scrollable;
   final Widget child;
 
-  const CustomBackground({
-    this.extraHeaderTitle,
-    required this.containerHeight,
+  const CustomizedBackground({
+    this.scrollable = false,
     required this.child,
+    required this.backgroundHeader,
     super.key
   });
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverPersistentHeader(
-          pinned: true,
-          delegate: HeaderDelegate(
-            context: context,
-            extraHeaderTitle: extraHeaderTitle
+    double height = MediaQuery.of(context).size.height;
+
+    return SafeArea(
+      child: CustomScrollView(
+        physics: this.scrollable ? null : const NeverScrollableScrollPhysics(),
+        slivers: [
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: HeaderDelegate(context: context),
           ),
-        ),
-        SliverToBoxAdapter(
-          child: Stack(
-            children: [
-              if(this.extraHeaderTitle != null)
-                Container(
-                  color: scoutColor,
-                  height: 150,
-                  width: 50,
-                ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+          SliverLayoutBuilder(
+            builder: (context, constraints) => SliverToBoxAdapter(
+              child: Stack(
                 children: [
                   Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 10),
+                    height: constraints.viewportMainAxisExtent,
                     decoration: const BoxDecoration(
-                      color: Colors.white,
+                      color: scoutColor,
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(50)
+                        topRight: Radius.circular(50)
+                      )
+                    ),
+                    child: Text(
+                      this.backgroundHeader,
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold
                       ),
                     ),
-                    height: this.containerHeight,
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(28),
-                    child: this.child,
                   ),
+                  Positioned.fill(
+                    top: 50,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(50)
+                        ),
+                      ),
+                      height: height,
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(28),
+                      child: this.child,
+                    ),
+                  )
                 ],
               ),
-            ],
+            )
           )
-        )
-      ],
+        ],
+      ),
     );
   }
 }
 
 class HeaderDelegate extends SliverPersistentHeaderDelegate {
-  final String? extraHeaderTitle;
   final BuildContext context;
 
   const HeaderDelegate({
-    this.extraHeaderTitle,
     required this.context,
   });
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     double progress = shrinkOffset / maxExtent;
+    double textPosition = progress * MediaQuery.of(context).size.width * 0.45;
+    double opacity = 1 - progress;
 
     return Stack(
-      fit: StackFit.expand,
+      alignment: Alignment.center,
       children: [
-        Positioned(
-          left: width * 0.4,
-          child: AnimatedOpacity(
-            duration: const Duration(milliseconds: 100),
-            opacity: 1 - progress,
-            child: Transform.rotate(
-              angle: -25 * 3.14 / 180,
-              child: ImageFiltered(
-                imageFilter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
-                child: Image.asset(
-                  height: height * 0.35,
-                  sjoGreen,
-                  fit: BoxFit.contain,
-                ),
+        AnimatedPositioned(
+          duration: const Duration(milliseconds: 100),
+          left: textPosition,
+          child: const Padding(
+            padding: EdgeInsets.only(left: 20),
+            child: Text(
+              'ESTOTE PARATI',
+              style: TextStyle(
+                color: Color(0xFF1F6A55),
+                fontSize: 22,
+                fontWeight: FontWeight.w900,
+                letterSpacing: 2,
               ),
             ),
           ),
         ),
-        if(this.extraHeaderTitle != null)
-          Positioned(
-            bottom: 0,
-            left: 0,
-            child: GestureDetector(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-                decoration: const BoxDecoration(
-                  color: scoutColor,
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(50)
-                  )
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  this.extraHeaderTitle!,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold
-                  ),
-                ),
+        Align(
+          alignment: Alignment.topRight,
+          child: AnimatedOpacity(
+            duration: const Duration(milliseconds: 100),
+            opacity: opacity,
+            child: Transform.rotate(
+              angle: -25 * 3.14 / 180,
+              child: ImageFiltered(
+                imageFilter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                child: Image.asset(sjoGreen),
               ),
-              onTap: (){},
             ),
-          )
+          ),
+        ),
       ],
     );
   }
 
   @override
-  double get maxExtent => MediaQuery.of(this.context).size.height * 0.25;
+  double get maxExtent => MediaQuery.of(this.context).size.height * 0.2;
 
   @override
   double get minExtent => MediaQuery.of(this.context).size.height * 0.05;

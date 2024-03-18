@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 enum ApplicationTab {
-  HOME,
-  ADVICE,
-  CALENDAR,
-  RESOURCES,
+  home,
+  advice,
+  resource,
 }
 
 class MenuBottomNavigationBar extends StatelessWidget {
@@ -26,23 +25,19 @@ class MenuBottomNavigationBar extends StatelessWidget {
       items: [
         buildBottomNavigationBarItem(Icons.home, 'Inicio'),
         buildBottomNavigationBarItem(Icons.people, 'Consejo'),
-        buildBottomNavigationBarItem(Icons.calendar_today, 'Calendario'),
         buildBottomNavigationBarItem(Icons.book, 'Recursos'),
       ],
       onTap: (int index) {
         final tab = ApplicationTab.values[index];
         if (tab == selectedTab) return;
         switch (tab) {
-          case ApplicationTab.HOME:
+          case ApplicationTab.home:
             Navigator.pushReplacementNamed(context, 'homeScreen');
             break;
-          case ApplicationTab.ADVICE:
+          case ApplicationTab.advice:
             Navigator.pushReplacementNamed(context, 'adviceScreen');
             break;
-          case ApplicationTab.CALENDAR:
-            Navigator.pushReplacementNamed(context, 'calendarScreen');
-            break;
-          case ApplicationTab.RESOURCES:
+          case ApplicationTab.resource:
             Navigator.pushReplacementNamed(context, 'resourcesScreen');
             break;
         }

@@ -1,3 +1,4 @@
+import 'package:estote_parati/src/transitions/transitions.dart';
 import 'package:flutter/material.dart';
 
 import 'package:estote_parati/src/screens/screens.dart';
@@ -22,10 +23,18 @@ class _MyAppState extends State<MyApp> {
     return Builder(
       builder: (context) {
         return MaterialApp(
-          title: 'San Jose Obrero',
+          title: 'Estote Parati',
           debugShowCheckedModeBanner: false,
           darkTheme: ThemeData(brightness: Brightness.light),
           themeMode: ThemeMode.dark,
+          theme: ThemeData(
+            pageTransitionsTheme: PageTransitionsTheme(
+                builders: {
+                  for (final platform in TargetPlatform.values)
+                    platform: const NoTransitionsBuilder(),
+                }
+            ),
+          ),
           initialRoute: 'homeScreen',
           routes: {
             'homeScreen': (_) => const HomeScreen(),

@@ -1,16 +1,17 @@
 // ignore_for_file: unnecessary_this
 
+import 'package:estote_parati/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
-class CardBlock extends StatelessWidget {
-  final int crossAxisCount;
+class ImageCardBlock extends StatelessWidget {
   final String blockName;
-  final List<Widget> children;
+  final List<String> imagePaths;
+  final List<Color> colors;
 
-  const CardBlock({
-    this.crossAxisCount = 2,
+  const ImageCardBlock({
     required this.blockName,
-    required this.children,
+    required this.imagePaths,
+    required this.colors,
     super.key
   });
 
@@ -29,13 +30,16 @@ class CardBlock extends StatelessWidget {
         GridView(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: this.crossAxisCount,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
             crossAxisSpacing: 10,
-            childAspectRatio: 1.45,
+            childAspectRatio: 1.3,
             mainAxisSpacing: 10
           ),
-          children: this.children
+          children: List.generate(this.imagePaths.length, (index) => ImageCard(
+            imagePath: this.imagePaths[index],
+            color: this.colors[index],
+          ))
         )
       ],
     );

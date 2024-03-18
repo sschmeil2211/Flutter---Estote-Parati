@@ -1,20 +1,13 @@
 // ignore_for_file: unnecessary_this, curly_braces_in_flow_control_structures
-import 'dart:math' as math;
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'package:estote_parati/src/utils/const.dart';
-import 'package:estote_parati/src/widgets/widgets.dart';
 
 class InventoryScreen extends StatelessWidget {
   const InventoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: scoutColor,
       appBar: AppBar(
@@ -37,21 +30,21 @@ class InventoryScreen extends StatelessWidget {
         color: Colors.white,
         child: ListView(
           shrinkWrap: true,
-          padding: EdgeInsets.all(38),
+          padding: const EdgeInsets.all(38),
           children: List.generate(10, (index) => Padding(
             padding: const EdgeInsets.only(bottom: 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'ITEM ${index}',
-                    style: TextStyle(
+                    'ITEM $index',
+                    style: const TextStyle(
                         color: groupColor,
                         fontSize: 20,
                         fontWeight: FontWeight.bold
                     ),
                   ),
-                  Text(
+                  const Text(
                     '20',
                     style: TextStyle(
                         color: groupColor,

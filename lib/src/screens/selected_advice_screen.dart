@@ -1,9 +1,5 @@
 // ignore_for_file: unnecessary_this, curly_braces_in_flow_control_structures
-import 'dart:math' as math;
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'package:estote_parati/src/utils/const.dart';
 import 'package:estote_parati/src/widgets/widgets.dart';
@@ -13,8 +9,6 @@ class SelectedAdvicesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-
     List<String> sections = ['FINANZAS', 'ANUAL', 'BAÑOS'];
 
     return Scaffold(
@@ -41,16 +35,26 @@ class SelectedAdvicesScreen extends StatelessWidget {
         child: ListView(
           children: List.generate(sections.length, (index) => Container(
             color: index == 0 ? scoutColor : groupColor,
-            child: DataCard(
-              titleColor: Colors.white,
-              cornerText: 'T${index + 1}',
-              color: groupColor,
-              title: sections[index],
-              content: Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Turpis in eu mi bibendum neque. Lacus laoreet non curabitur gravida arcu. Morbi tristique senectus et netus et malesuada fames. Pulvinar mattis nunc sed blandit libero volutpat sed cras. Mauris ultrices eros in cursus turpis massa.',
-                style: TextStyle(color: Colors.white, fontSize: 16),
+            child: Container(
+              decoration: const BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      offset: Offset(-5, -5),
+                      blurRadius: 10,
+                      color: Colors.black38
+                  )
+                ],
               ),
-            ),
+              child: CustomizedCard(
+                  color: groupColor,
+                  headerText: sections[index],
+                  corner: Text('T${index + 1}'),
+                  body: const Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Turpis in eu mi bibendum neque. Lacus laoreet non curabitur gravida arcu. Morbi tristique senectus et netus et malesuada fames. Pulvinar mattis nunc sed blandit libero volutpat sed cras. Mauris ultrices eros in cursus turpis massa.',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  )
+              ),
+            )
           ))
         ),
       ),

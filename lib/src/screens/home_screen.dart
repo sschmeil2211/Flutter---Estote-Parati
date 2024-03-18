@@ -10,45 +10,61 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-
     return Scaffold(
-      bottomNavigationBar: const MenuBottomNavigationBar(selectedTab: ApplicationTab.HOME),
+      bottomNavigationBar: const MenuBottomNavigationBar(selectedTab: ApplicationTab.home),
       backgroundColor: groupColor,
-      body: CustomBackground(
-        containerHeight: height * 0.85,
-        extraHeaderTitle: 'Misiones',
+      body: CustomizedBackground(
+        scrollable: true,
+        backgroundHeader: 'Misiones',
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const AnnouncementCard(
-              type: 'Taller',
-              title: 'Orientación para chicos con discapacidad',
-              date: '21/04',
-              hour: '11:00 - 14:00',
+            const CustomizedCard(
               color: scoutColor,
-            ),
-            const AnnouncementCard(
-              type: 'Próximo Consejo',
-              title: 'Finanzas, Anual, Invierno, Educadores',
-              date: '21/04',
-              hour: '20:00',
-              color: groupColor,
-            ),
-            CardBlock(
-              blockName: 'Ciclos',
-              children: List.generate(4, (index) => CustomCard(
-                hasImage: true,
-                color: branchColors[index],
-                corner: const Icon(Icons.more_vert, color: Colors.white),
-                content: Image.asset(
-                  alignment: Alignment.bottomLeft,
-                  height: 85,
-                  branchLogos[index],
-                  fit: BoxFit.contain,
+              headerText: 'Taller',
+              corner: Text(
+                '21/04',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600
                 ),
-              )),
+              ),
+              body: Text(
+                'Orientación para chicos con discpacidad',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              footerText: '11:00 - 14:00',
+              footerIcon: Icons.watch_later_outlined,
+            ),
+            const CustomizedCard(
+              color: groupColor,
+              headerText: 'Próximo Consejo',
+              corner: Text(
+                '21/04',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600
+                ),
+              ),
+              body: Text(
+                'Finanzas, Anual, Invierno, Educadores, Aplicacion',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              footerText: '20:00',
+              footerIcon: Icons.watch_later_outlined,
+            ),
+            ImageCardBlock(
+              blockName: 'Ciclos',
+              imagePaths: branchLogos,
+              colors: branchColors,
             ),
           ],
         )

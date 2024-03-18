@@ -1,9 +1,5 @@
 // ignore_for_file: unnecessary_this, curly_braces_in_flow_control_structures
-import 'dart:math' as math;
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'package:estote_parati/src/utils/const.dart';
 import 'package:estote_parati/src/widgets/widgets.dart';
@@ -43,9 +39,25 @@ class GroupPlanScreen extends StatelessWidget {
           shrinkWrap: true,
           children: List.generate(sections.length, (index) => InkWell(
             child: Container(
+              height: height * 0.2,
               color: index == 0 ? Colors.white : Color(colors[index-1]),
-              child: CustomCard(
-                color: Color(colors[index]), content: Center(child: Text(sections[index])), corner: Container()
+              child: Container(
+                decoration: const BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        offset: Offset(-5, -5),
+                        blurRadius: 10,
+                        color: Colors.black38
+                    )
+                  ],
+                ),
+                child: CustomizedCard(
+                  color: Color(colors[index]),
+                  headerText: '',
+                  body: Center(
+                    child: Text(sections[index])
+                  ),
+                )
               ),
             ),
             onTap: () => Navigator.pushNamed(context, 'groupPlanSection'),

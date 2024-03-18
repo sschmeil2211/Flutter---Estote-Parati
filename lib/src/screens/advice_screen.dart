@@ -12,34 +12,23 @@ class AdviceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
 
-    List<String> titles = ['Consejos', 'Plan de grupo', 'Inventario'];
+    List<String> titles = ['Consejos', 'Plan de grupo', 'Inventario', 'Nominas'];
     List<String> route = ['lastAdvicesScreen', 'groupPlan', 'inventoryScreen'];
 
     return Scaffold(
-      bottomNavigationBar: const MenuBottomNavigationBar(selectedTab: ApplicationTab.ADVICE),
+      bottomNavigationBar: const MenuBottomNavigationBar(selectedTab: ApplicationTab.advice),
       backgroundColor: groupColor,
-      body: CustomBackground(
-        containerHeight: height * 0.75,
-        extraHeaderTitle: 'Póximo Consejo 06/04',
+      body: CustomizedBackground(
+        scrollable: true,
+        backgroundHeader: 'Próximo 06/04',
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(titles.length, (index) => InkWell(
-            child: CustomCard(
+            child: CustomizedCard(
               color: groupColor,
-              corner: Container(),
-              content: Container(
-                alignment: Alignment.centerLeft,
-                height: 130,
-                child: Text(
-                  titles[index],
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold
-                  ),
-                ),
-              ),
+              headerText: titles[index],
+              footerIcon: Icons.update,
+              footerText: 'Marzo 2023',
             ),
             onTap: () => Navigator.pushNamed(context, route[index]),
           )),
