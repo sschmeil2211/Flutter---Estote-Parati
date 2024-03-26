@@ -1,4 +1,7 @@
+import 'package:estote_parati/src/utils/consts/colors.dart';
+import 'package:estote_parati/src/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 enum ApplicationTab {
   home,
@@ -23,9 +26,9 @@ class MenuBottomNavigationBar extends StatelessWidget {
       currentIndex: selectedTab.index,
       type: BottomNavigationBarType.fixed,
       items: [
-        buildBottomNavigationBarItem(Icons.home, 'Inicio'),
-        buildBottomNavigationBarItem(Icons.people, 'Consejo'),
-        buildBottomNavigationBarItem(Icons.book, 'Recursos'),
+        buildBottomNavigationBarItem(FontAwesomeIcons.house , 'Inicio'),
+        buildBottomNavigationBarItem(FontAwesomeIcons.peopleGroup, 'Consejo'),
+        buildBottomNavigationBarItem(FontAwesomeIcons.bookOpen, 'Recursos'),
       ],
       onTap: (int index) {
         final tab = ApplicationTab.values[index];
@@ -47,8 +50,8 @@ class MenuBottomNavigationBar extends StatelessWidget {
 
   BottomNavigationBarItem buildBottomNavigationBarItem(IconData iconName, String label) {
     return BottomNavigationBarItem(
-      activeIcon: Icon(iconName),
-      icon: Icon(iconName),
+      activeIcon: Icon(iconName, color: groupColor.withOpacity(0.75)),
+      icon: Icon(iconName, color: groupColor),
       label: label
     );
   }
